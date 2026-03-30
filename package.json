@@ -1,0 +1,60 @@
+{
+  "name": "@cybrlab/preclick-openclaw",
+  "version": "0.1.0",
+  "description": "PreClick plugin for OpenClaw. Assess target URLs for potential threats and alignment with the user's browsing intent before agent navigation.",
+  "type": "module",
+  "main": "index.js",
+  "openclaw": {
+    "extensions": [
+      "./index.js"
+    ],
+    "compat": {
+      "pluginApi": ">=2026.3.28",
+      "minGatewayVersion": "2026.3.28"
+    },
+    "build": {
+      "openclawVersion": "2026.3.28",
+      "pluginSdkVersion": "2026.3.28"
+    }
+  },
+  "engines": {
+    "node": ">=22.14.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.0"
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.3.28"
+  },
+  "devDependencies": {
+    "openclaw": "^2026.3.28"
+  },
+  "files": [
+    "index.js",
+    "src/index.js",
+    "openclaw.plugin.json",
+    "README.md",
+    "CHANGELOG.md",
+    "skills/"
+  ],
+  "keywords": [
+    "openclaw",
+    "openclaw-plugin",
+    "mcp",
+    "url-scanner",
+    "security",
+    "phishing-detection",
+    "safe-browsing",
+    "preclick"
+  ],
+  "author": "CybrLab.ai <contact@cybrlab.ai>",
+  "license": "Apache-2.0",
+  "homepage": "https://preclick.ai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cybrlab-ai/preclick-openclaw.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cybrlab-ai/preclick-openclaw/issues"
+  }
+}
