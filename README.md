@@ -215,7 +215,6 @@ This tool is intended for authorized security assessment only. Use it solely on 
 
 - [Full API Documentation](https://github.com/cybrlab-ai/preclick-mcp/blob/main/docs/API.md)
 - [Authentication Guide](https://github.com/cybrlab-ai/preclick-mcp/blob/main/docs/AUTHENTICATION.md)
-- [Manual Setup (without plugin)](https://github.com/cybrlab-ai/preclick-mcp/blob/main/docs/OPENCLAW_SETUP.md)
 
 ## Support
 
