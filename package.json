@@ -1,6 +1,6 @@
 {
   "name": "@cybrlab/preclick-openclaw",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "PreClick plugin for OpenClaw. Assess target URLs for potential threats and alignment with the user's browsing intent before agent navigation.",
   "type": "module",
   "main": "index.js",

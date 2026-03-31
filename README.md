@@ -57,8 +57,10 @@ available), add the plugin tools to `tools.alsoAllow`:
     "alsoAllow": [
       "url_scanner_scan",
       "url_scanner_scan_with_intent",
-      "url_scanner_scan_async",
-      "url_scanner_scan_with_intent_async",
+      "url_scanner_async_scan",
+      "url_scanner_async_scan_with_intent",
+      "url_scanner_async_task_status",
+      "url_scanner_async_task_result",
       "url_scanner_tasks_get",
       "url_scanner_tasks_result",
       "url_scanner_tasks_list",
@@ -79,16 +81,18 @@ After restarting the Gateway:
 openclaw plugins list
 ```
 
-You should see `preclick-openclaw` listed with scanner and task tools:
+You should see `preclick-openclaw` listed with 10 tools:
 
 - `url_scanner_scan` — Analyze a URL for security threats
-- `url_scanner_scan_async` — Analyze a URL asynchronously and return a task handle
 - `url_scanner_scan_with_intent` — Analyze a URL with user intent context
-- `url_scanner_scan_with_intent_async` — Intent-aware async scan with task handle
-- `url_scanner_tasks_get` — Check task status
-- `url_scanner_tasks_result` — Wait for task result
-- `url_scanner_tasks_list` — List tasks
-- `url_scanner_tasks_cancel` — Cancel a task
+- `url_scanner_async_scan` — Compatibility async submit tool
+- `url_scanner_async_scan_with_intent` — Compatibility async submit with intent
+- `url_scanner_async_task_status` — Compatibility async status polling
+- `url_scanner_async_task_result` — Compatibility async result polling
+- `url_scanner_tasks_get` — OpenClaw proxy for native `tasks/get`
+- `url_scanner_tasks_result` — OpenClaw proxy for native `tasks/result`
+- `url_scanner_tasks_list` — OpenClaw proxy for native `tasks/list`
+- `url_scanner_tasks_cancel` — OpenClaw proxy for native `tasks/cancel`
 
 The plugin includes a bundled skill that instructs the agent to assess
 target URLs for threats and intent alignment before navigating. You can
@@ -145,7 +149,7 @@ I want to log in to my bank. Scan https://example.com with url_scanner_scan_with
 For asynchronous execution:
 
 ```text
-Start an async scan for https://example.com using url_scanner_scan_async, then poll with url_scanner_tasks_get until completed and return the result with url_scanner_tasks_result.
+Start an async scan for https://example.com using url_scanner_async_scan, then poll with url_scanner_async_task_status or url_scanner_async_task_result until completed.
 ```
 
 `url_scanner_scan` and `url_scanner_scan_with_intent` also support optional MCP-style task mode by adding:
@@ -173,10 +177,11 @@ Use `agent_access_directive` for navigation decisions.
 
 ## Scan Timing
 
-URL scans typically take 30-90 seconds.
+URL scans typically take around 70-80 seconds on current production traffic.
 
-- **Direct mode (sync):** `url_scanner_scan` / `url_scanner_scan_with_intent` block until completion or timeout.
-- **Task mode (async):** use `*_async` tools (or pass `task` on base tools), then query task status/result via task tools.
+- **Direct mode (sync):** `url_scanner_scan` / `url_scanner_scan_with_intent` block until completion. If the hosted service times out its direct wait but returns a recoverable task handle, the plugin continues polling automatically.
+- **Compatibility async mode:** use `url_scanner_async_scan` / `url_scanner_async_scan_with_intent`, then poll with `url_scanner_async_task_status` / `url_scanner_async_task_result`.
+- **Native task mode:** pass `task` on the base scan tools, then use the plugin's `url_scanner_tasks_*` proxies for MCP task methods.
 
 ## Troubleshooting
 
@@ -187,7 +192,7 @@ URL scans typically take 30-90 seconds.
 | Tools not appearing                    | Connection failed or `tools.allow` set | Check Gateway logs for `[PreClick]`; if `tools.allow` is set, add tools to `tools.alsoAllow` |
 | `401 Unauthorized`                     | API key required or invalid            | Set `apiKey` in config or `PRECLICK_API_KEY` env var                                         |
 | `429 Too Many Requests`                | Rate limit exceeded                    | Reduce frequency or add API key for higher limits                                            |
-| Scan takes too long                    | Target site is slow or complex         | Wait for completion; scans can take up to 90 seconds                                         |
+| Scan takes too long                    | Target site is slow or complex         | Wait for completion; scans typically take around 70-80 seconds                               |
 
 ## How It Works
 

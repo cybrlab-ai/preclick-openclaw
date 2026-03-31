@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0 (2026-03-31)
+
+- Align async compatibility tool naming with the upstream PreClick MCP public contract:
+  - `url_scanner_async_scan`
+  - `url_scanner_async_scan_with_intent`
+  - `url_scanner_async_task_status`
+  - `url_scanner_async_task_result`
+- Clarify that `url_scanner_tasks_*` are OpenClaw proxy tools for native MCP task methods.
+- Recover `url_scanner_tasks_result` automatically when the hosted `tasks/result` wait window times out but returns a recoverable `taskId`.
+
 ## 0.1.0 (2026-03-30)
 
 - Initial release of `@cybrlab/preclick-openclaw` — the PreClick plugin for OpenClaw.

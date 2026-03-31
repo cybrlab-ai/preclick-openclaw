@@ -76,17 +76,26 @@ This catches mismatches that threat-only analysis may miss — for
 example, a legitimate site that may not be the one the user intended
 to use for their goal.
 
-**Async workflow tools (non-blocking)**
-- `url_scanner_scan_async` and `url_scanner_scan_with_intent_async`
-  start scans and return a task handle immediately.
-- `url_scanner_tasks_get` checks task status.
-- `url_scanner_tasks_result` returns the completed scan payload.
+**Compatibility async tools (non-blocking, no native MCP Tasks required)**
+- `url_scanner_async_scan` and `url_scanner_async_scan_with_intent`
+  submit scans and return a `task_id` immediately.
+- `url_scanner_async_task_status` checks task status (working,
+  completed, failed, cancelled).
+- `url_scanner_async_task_result` returns the completed scan payload
+  or a working status while the task is still running.
+
+**OpenClaw task-method proxy tools**
+- `url_scanner_tasks_get` checks task status (non-blocking).
+- `url_scanner_tasks_result` waits for task completion and returns the
+  result payload.
 - `url_scanner_tasks_list` lists current tasks.
 - `url_scanner_tasks_cancel` cancels a queued or running task.
 
-Use async tools when you need non-blocking execution or explicit task
-lifecycle control. For normal conversational checks, direct tools are
-usually sufficient.
+Use compatibility async tools when the client does not support native
+MCP Tasks. Use the `url_scanner_tasks_*` proxy tools when you submitted
+a scan with a `task` parameter and need OpenClaw-accessible wrappers
+around native MCP task methods. For normal conversational checks,
+direct tools are usually sufficient.
 
 ## How to Act on Results
 
@@ -119,9 +128,9 @@ Every verification returns an `agent_access_directive`. Follow it:
 
 ## Timing
 
-Verifications typically take 30 to 90 seconds. Do not set short
-timeouts or abandon verification prematurely. Wait for the result
-before proceeding.
+Verifications typically take around 70 to 80 seconds on current
+production traffic. Do not set short timeouts or abandon verification
+prematurely. Wait for the result before proceeding.
 
 ## User-Facing Messaging
 
@@ -133,6 +142,6 @@ before proceeding.
 
 ## Tool Availability Fallback
 
-If PreClick tools are unavailable (including async/task variants), do
-not proceed with scan logic. Tell the user to install the plugin and
-restart the gateway.
+If PreClick tools are unavailable (including compatibility async and
+native task variants), do not proceed with scan logic. Tell the user
+to install the plugin and restart the gateway.
