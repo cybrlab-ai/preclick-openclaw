@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0 (2026-03-31)
+## 0.2.1 (2026-04-01)
 
 - Align async compatibility tool naming with the upstream PreClick MCP public contract:
   - `url_scanner_async_scan`
@@ -9,6 +9,7 @@
   - `url_scanner_async_task_result`
 - Clarify that `url_scanner_tasks_*` are OpenClaw proxy tools for native MCP task methods.
 - Recover `url_scanner_tasks_result` automatically when the hosted `tasks/result` wait window times out but returns a recoverable `taskId`.
+- **Breaking:** Remove `PRECLICK_API_KEY` environment variable fallback from plugin code. API keys are now configured exclusively through plugin config (`plugins.entries.preclick-openclaw.config.apiKey`). This eliminates the env-var-to-network-header pattern that triggered static analysis warnings.
 
 ## 0.1.0 (2026-03-30)
 

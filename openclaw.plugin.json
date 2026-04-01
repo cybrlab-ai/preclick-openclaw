@@ -1,8 +1,8 @@
 {
   "id": "preclick-openclaw",
   "name": "PreClick Security Scanner",
-  "version": "0.1.0",
-  "description": "Assess target URLs for potential threats and alignment with the user's browsing intent before agent navigation. Connects to the hosted PreClick endpoint over Streamable HTTP. Includes companion skill.",
+  "version": "0.2.1",
+  "description": "Assess target URLs for potential threats and alignment with the user's browsing intent before agent navigation. Free to use (up to 100 requests/day, no sign-up). Connects to the hosted PreClick endpoint over Streamable HTTP. Includes companion skill.",
   "skills": ["./skills"],
   "configSchema": {
     "type": "object",
@@ -10,7 +10,7 @@
     "properties": {
       "apiKey": {
         "type": "string",
-        "description": "PreClick API key. Optional for hosted trial (up to 100 requests/day). For higher limits, obtain a key at contact@cybrlab.ai."
+        "description": "PreClick API key. Stored as sensitive plugin config and forwarded to the hosted PreClick endpoint as the X-API-Key auth header when present. Optional for hosted trial (up to 100 requests/day). For higher limits, obtain a key at contact@cybrlab.ai."
       }
     }
   },

@@ -9,6 +9,9 @@ endpoint over Streamable HTTP. A companion skill is included that
 instructs agents to assess target URLs for potential threats and
 alignment with the user's browsing intent before navigation.
 
+**Free to use** — up to 100 requests per day with no API key and no
+sign-up required. For higher limits, configure an API key (see below).
+
 ---
 
 ## Install
@@ -26,8 +29,7 @@ No additional configuration is required for trial mode (up to 100 requests/day).
 
 **API key (optional, higher limits):**
 
-Set the `PRECLICK_API_KEY` environment variable, or add `apiKey` to the plugin config in
-`~/.openclaw/openclaw.json`:
+Add `apiKey` to the plugin config in `~/.openclaw/openclaw.json`:
 
 ```json
 {
@@ -190,7 +192,7 @@ URL scans typically take around 70-80 seconds on current production traffic.
 | Plugin not listed                      | Not installed or Gateway not restarted | Run install command, restart Gateway                                                         |
 | `[PreClick] Connection failed` in logs | Endpoint unreachable                   | Check network; verify `curl https://preclick.ai/mcp` works                                   |
 | Tools not appearing                    | Connection failed or `tools.allow` set | Check Gateway logs for `[PreClick]`; if `tools.allow` is set, add tools to `tools.alsoAllow` |
-| `401 Unauthorized`                     | API key required or invalid            | Set `apiKey` in config or `PRECLICK_API_KEY` env var                                         |
+| `401 Unauthorized`                     | API key required or invalid            | Set `apiKey` in plugin config                                                                |
 | `429 Too Many Requests`                | Rate limit exceeded                    | Reduce frequency or add API key for higher limits                                            |
 | Scan takes too long                    | Target site is slow or complex         | Wait for completion; scans typically take around 70-80 seconds                               |
 

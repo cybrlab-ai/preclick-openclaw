@@ -38,8 +38,8 @@ openclaw skills list | grep -i preclick
 Before opening https://example.com, run url_scanner_scan_with_intent with intent "log in to my account" and tell me whether I should proceed.
 ```
 
-No API key is needed for trial mode (up to 100 requests/day). For
-higher limits, contact contact@cybrlab.ai.
+**Free to use** — no API key and no sign-up required (up to 100
+requests/day). For higher limits, contact contact@cybrlab.ai.
 
 ## When to Verify
 
